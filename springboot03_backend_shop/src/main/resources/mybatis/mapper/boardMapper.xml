@@ -88,13 +88,13 @@
     <update id="reStepCount" parameterType = "BoardDTO">
        UPDATE board
        SET re_step = re_step + 1
-       WHERE ref=#{ref} AND re_step > #{re_step}  같은 그룹이고 re_step 값이 클 때 
+       WHERE ref=#{ref} AND re_step > #{re_step}  
     </update>
     
     <update id = "update" parameterType = "BoardDTO">
        UPDATE board
        SET subject=#{subject}, content=#{content}
-       <if test="upload!=null">
+       <if test="upload!=null">  
           ,upload=#{upload}
        </if>
        WHERE num=#{num}

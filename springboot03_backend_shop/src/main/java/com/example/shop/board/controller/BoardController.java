@@ -39,6 +39,7 @@ import com.example.shop.board.service.BoardService;
 import com.example.shop.common.file.fileUpload;
 
 import lombok.val;
+
 //@CrossOrigin(origins= {"http://localhost:3000");
 @CrossOrigin("*")
 @RestController
@@ -50,10 +51,9 @@ public class BoardController {
 	@Autowired
 	private PageDTO pdto;
 
-	
 	@Value("${spring.servlet.multipart.location}")
 	private String filePath;
-	
+
 	private int currentPage;
 
 	public BoardController() {
@@ -78,11 +78,10 @@ public class BoardController {
 		return map;
 	}
 
-	
-	//@requestBody:json => 자바객체
-	//@ResponseBody:자바객체 => json
-	//@PathVariable: /board/list/:num		=>/board/list/{num}
-	//@RequestParam: /board/list?num=value  =>/board/list?num=1 =>/board/list
+	// @requestBody:json => 자바객체
+	// @ResponseBody:자바객체 => json
+	// @PathVariable: /board/list/:num =>/board/list/{num}
+	// @RequestParam: /board/list?num=value =>/board/list?num=1 =>/board/list
 	// multipart/form-data : @requestbody 선언없이 그냥 받음 boardDTO
 	// 제목글쓸떄는 currentPage 값이 null로 넘어오기때문에, PageDTO로 값을 받는다.
 	@PostMapping(value = "/board/write")
@@ -95,11 +94,12 @@ public class BoardController {
 		// System.out.println(dto.getMembersDTO().getMemberName());
 
 		// 파일첨부가 있으면..
-		if (!file.isEmpty()) {
+		
+		if (file!=null && !file.isEmpty()) {
 			UUID random = fileUpload.saveCopyFile(file, filePath);
 			dto.setUpload(random + "_" + file.getOriginalFilename());
 		}
-
+		
 		dto.setIp(req.getRemoteAddr());
 
 //		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
@@ -112,59 +112,53 @@ public class BoardController {
 		if (dto.getRef() != 0) {
 //			ratt.addAttribute("currentPage", pv.getCurrentPage());
 			return String.valueOf(pv.getCurrentPage());
-		}else {
+		} else {
 			return String.valueOf(1);
 		}
 
 //		return "redirect:/board/list.do";
 
 	}
+
 	@GetMapping("/board/view/{num}")
-	public BoardDTO viewExecute(@PathVariable("num")int num) {
+	public BoardDTO viewExecute(@PathVariable("num") int num) {
+
 		return boardService.contentProcess(num);
 	}
-	
+
 	@PutMapping("/board/update")
-	public void updateExecute(BoardDTO dto, HttpServletRequest request) throws IllegalStateException, IOException{
-		MultipartFile file= dto.getFilename();
-		if(!file.isEmpty()) {
-			UUID random= fileUpload.saveCopyFile(file, filePath);
-			dto.setUpload(random+"_"+file.getOriginalFilename());
-			file.transferTo(new File(random+"_"+file.getOriginalFilename()));
-			
+	public void updateExecute(BoardDTO dto, HttpServletRequest request) throws IllegalStateException, IOException {
+		MultipartFile file = dto.getFilename();
+
+	
+		if (file!=null &&!file.isEmpty()) {
+			UUID random = fileUpload.saveCopyFile(file, filePath);
+			dto.setUpload(random + "_" + file.getOriginalFilename());
+			file.transferTo(new File(random + "_" + file.getOriginalFilename()));
+			System.out.println(file.getOriginalFilename());
 		}
 		boardService.updateProcess(dto, filePath);
-		
-		
+
 	}
+
 	@DeleteMapping("/board/delete/{num}")
 	public void deleteExecute(@PathVariable("num") int num, HttpServletRequest request) {
-		
+
 		boardService.deleteProcess(num, filePath);
-		
+
 	}
-	
+
 	@GetMapping("/board/contentdownload/{filename}")
-	public ResponseEntity<Resource> downloadExecute(@PathVariable("filename")String filename) throws IOException {
-		
-		String fileName = filename.substring(filename.indexOf("_")+1);
-		String str = URLEncoder.encode(fileName,"UTF-8");
-		str= str.replaceAll("\\+","%20");
-		Path path= Paths.get(filePath+"\\"+filename);
-		Resource resource=new InputStreamResource(Files.newInputStream(path));
+	public ResponseEntity<Resource> downloadExecute(@PathVariable("filename") String filename) throws IOException {
+
+		String fileName = filename.substring(filename.indexOf("_") + 1);
+		String str = URLEncoder.encode(fileName, "UTF-8");
+		str = str.replaceAll("\\+", "%20");
+		Path path = Paths.get(filePath + "\\" + filename);
+		Resource resource = new InputStreamResource(Files.newInputStream(path));
 		return ResponseEntity.ok().header(HttpHeaders.CONTENT_TYPE, "application/octet-stream")
-				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename="+str+";")
-				.body(resource);
-		
-		
-		
-		
-		
-		
-		
-		
-		
+				.header(HttpHeaders.CONTENT_DISPOSITION, "attachment;filename=" + str + ";").body(resource);
+
 	}
-	
 
 }

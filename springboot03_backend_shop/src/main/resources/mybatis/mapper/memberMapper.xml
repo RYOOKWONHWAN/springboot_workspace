@@ -4,10 +4,10 @@
     "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
     
     
-<mapper namespace = "members">
+<mapper namespace = "com.example.shop.members.dao.MembersDAO">
 
 	<!-- 회원가입 -->
-	<insert id = "insertMember" parameterType="members.dto.MembersDTO">
+	<insert id = "insertMember" parameterType="MembersDTO">
 		<![CDATA[
 			INSERT INTO members(memberEmail, memberPass, memberName, memberPhone, memberType)
 			VALUES(#{memberEmail},#{memberPass}, #{memberName}, #{memberPhone}, #{memberType})
@@ -16,7 +16,7 @@
 	</insert>
 	
 	<!-- 원래 파라미터 값 경로도 다써줘야하지만 mybatis 에 alies 값 이용해서 string 이렇게씀 -->
-	<select id = "selectByEmail" parameterType="string"  resultType="members.dto.MembersDTO">
+	<select id = "selectByEmail" parameterType="string"  resultType="MembersDTO">
 		SELECT * FROM members
 		WHERE memberEmail = #{memberEmail}
 	</select>
@@ -24,7 +24,7 @@
 	
 	
 	<!-- 회원 정보 수정 변수명 순서는 상관없으나, 변수명 가독성때문에 지켜주는게좋음-->
-	<update id = "updateMember" parameterType="members.dto.MembersDTO">
+	<update id = "updateMember" parameterType="MembersDTO">
 		UPDATE members
 		SET memberPass=#{memberPass},memberName=#{memberName}, memberPhone = #{memberPhone}
 		WHERE memberEmail=#{memberEmail}
@@ -32,7 +32,7 @@
 	</update>
 
 	<!-- 비밀번호 변경  HashMap 으로 받아와도된다?-->
-	<update id = "updateByPass" parameterType="members.dto.MembersDTO">
+	<update id = "updateByPass" parameterType="MembersDTO">
 		UPDATE members SET memberPass = #{memberPass}
 		WHERE memberEmail = #{memberEmail}
 	

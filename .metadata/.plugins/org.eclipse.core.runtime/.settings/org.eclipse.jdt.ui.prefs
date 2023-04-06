@@ -1,4 +1,4 @@
-content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="java.util.Map"><rhs name\="java.util.HashMap"/></lhs><lhs name\="com.example.shop.board.dto.PageDTO"><rhs name\="com.example.shop.board.dto.PageDTO"/></lhs></history>
+content_assist_lru_history=<?xml version\="1.0" encoding\="UTF-8" standalone\="no"?><history maxLHS\="100" maxRHS\="10"><lhs name\="java.util.Map"><rhs name\="java.util.HashMap"/></lhs><lhs name\="com.example.shop.board.dto.PageDTO"><rhs name\="com.example.shop.board.dto.PageDTO"/></lhs><lhs name\="java.io.File"><rhs name\="java.io.File"/></lhs><lhs name\="org.springframework.core.io.InputStreamSource"><rhs name\="org.springframework.core.io.InputStreamResource"/></lhs><lhs name\="org.springframework.core.io.Resource"><rhs name\="org.springframework.core.io.InputStreamResource"/></lhs></history>
 content_assist_number_of_computers=15
 content_assist_proposals_background=255,255,255
 content_assist_proposals_foreground=0,0,0
