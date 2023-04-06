@@ -15,6 +15,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import com.example.shop.members.dao.MembersDAO;
 import com.example.shop.security.jwt.JwtAuthenticationFilter;
 import com.example.shop.security.jwt.JwtAuthorizationFilter;
+import com.example.shop.security.service.CorsConfig;
 
 @Configuration
 @EnableWebSecurity //SpringSecurityFilterChain 에 등록  로그인 및 세션분리 관련 기능 제공
@@ -24,6 +25,9 @@ public class SecurityConfig {
 	@Autowired
 	private MembersDAO userRepository;
 	
+	
+	@Autowired
+	private CorsConfig corsConfig;
 	
 	@Bean
 	public BCryptPasswordEncoder encodePassword() {
@@ -56,6 +60,7 @@ public class SecurityConfig {
 		public void configure(HttpSecurity http) throws Exception {
 			AuthenticationManager authenticationManager = http.getSharedObject(AuthenticationManager.class);
 			
+			http.addFilter(corsConfig.corsFilter());
 			//addFilter(): FilterComparator 에 등록되어있는 Filter들을 활성화할때 사용
 			//addFilterBefore(), addFilterAfter() : CustomFilter를 등록할 때 사용
 			http.addFilter(new JwtAuthenticationFilter(authenticationManager)).addFilter(new JwtAuthorizationFilter(authenticationManager , userRepository) );
