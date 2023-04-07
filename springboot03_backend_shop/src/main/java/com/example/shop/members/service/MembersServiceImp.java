@@ -54,13 +54,12 @@ public class MembersServiceImp implements MembersService{
 	}
 
 	@Override
-	public AuthInfo updateMemberProcess(MembersDTO dto) {
+	public void updateMemberProcess(MembersDTO dto) {
 		membersDao.updateMember(dto);
 		
-		//구지 또 접근안하고 처리해도됨
+		//굳이 또 접근안하고 처리해도됨
 		MembersDTO member = membersDao.selectByEmail(dto.getMemberEmail());
-		
-		return new AuthInfo(member.getMemberEmail(), member.getMemberName(),member.getMemberPass());
+		 
 	}
 
 	@Override

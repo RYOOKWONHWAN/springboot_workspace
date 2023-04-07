@@ -37,6 +37,7 @@ import com.example.shop.board.dto.BoardDTO;
 import com.example.shop.board.dto.PageDTO;
 import com.example.shop.board.service.BoardService;
 import com.example.shop.common.file.fileUpload;
+import com.example.shop.members.dto.MembersDTO;
 
 import lombok.val;
 
@@ -122,7 +123,9 @@ public class BoardController {
 
 	@GetMapping("/board/view/{num}")
 	public BoardDTO viewExecute(@PathVariable("num") int num) {
-
+		BoardDTO dto= boardService.contentProcess(num);
+		System.out.println("dt"+dto.getMemberEmail());
+		System.out.println("dt"+dto.getContent());
 		return boardService.contentProcess(num);
 	}
 

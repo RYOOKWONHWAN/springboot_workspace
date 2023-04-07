@@ -78,7 +78,7 @@ public class JwtAuthenticationFilter extends UsernamePasswordAuthenticationFilte
 		System.out.println("su");
 		PrincipalDetails principalDetails = (PrincipalDetails) authResult.getPrincipal();
 		String jwtToken = JWT.create().withSubject("mycors")
-				.withExpiresAt(new Date(System.currentTimeMillis() + (60 * 1000 * 60 * 1L)))
+				.withExpiresAt(new Date(System.currentTimeMillis() + (60 * 1000 * 60 * 2L)))
 				.withClaim("memberName", principalDetails.getMembersDTO().getMemberName())
 				.withClaim("authRole", principalDetails.getMembersDTO().getAuthrole())
 				.withClaim("memberEmail", principalDetails.getMembersDTO().getMemberEmail())

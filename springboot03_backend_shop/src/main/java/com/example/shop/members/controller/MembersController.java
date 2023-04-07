@@ -1,5 +1,10 @@
 package com.example.shop.members.controller;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.UUID;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,9 +12,13 @@ import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
+import com.example.shop.board.dto.BoardDTO;
+import com.example.shop.common.file.fileUpload;
 import com.example.shop.members.dto.AuthInfo;
 import com.example.shop.members.dto.MembersDTO;
 import com.example.shop.members.service.MembersService;
@@ -51,5 +60,16 @@ public class MembersController {
 	public String loginMember(MembersDTO membersDTO) {
 		return null;
 	}
+	@PutMapping("/member/update")
+	public void memberUpdate(MembersDTO dto, HttpServletRequest request) throws IllegalStateException, IOException {
+		System.out.println("이름" +dto.getMemberName());
+		System.out.println("번호" +dto.getMemberPhone());
+		System.out.println("메일" +dto.getMemberEmail());
+		dto.setMemberPass(encodePassword.encode(dto.getMemberPass()));
+		System.out.println("비밀 "+dto.getMemberPass());
+		membersService.updateMemberProcess(dto);
+		
+	}
+
 
 }

@@ -5,6 +5,8 @@ import java.sql.Date;
 import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.example.shop.members.dto.MembersDTO;
+
 
 
 
@@ -15,8 +17,14 @@ public class BoardDTO {
 	private int num, readcount, ref, re_step, re_level;
 	private String subject, content, ip, memberEmail;
 	private Date reg_date;
-//	private MembersDTO membersDTO;
+	private MembersDTO membersDTO;
 	
+	public MembersDTO getMembersDTO() {
+		return membersDTO;
+	}
+	public void setMembersDTO(MembersDTO membersDTO) {
+		this.membersDTO = membersDTO;
+	}
 	//board테이블의 파일 첨부를 처리해주는 멤버변수
 	private String upload;
 	private MultipartFile filename;
