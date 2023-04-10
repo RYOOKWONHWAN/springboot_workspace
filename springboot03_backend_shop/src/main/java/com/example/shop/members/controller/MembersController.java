@@ -6,11 +6,14 @@ import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
+import javax.websocket.server.PathParam;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.web.bind.annotation.CrossOrigin;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -70,6 +73,16 @@ public class MembersController {
 		membersService.updateMemberProcess(dto);
 		
 	}
-
+	@GetMapping("/member/editinfo/{memberEmail}")
+	public MembersDTO getMember(@PathVariable("memberEmail") String memberEmail) {
+		
+		return membersService.updateMemberProcess(memberEmail);
+	}
+	@PostMapping("/member/update")
+	public void updataMember(@RequestBody MembersDTO dto) {
+		dto.setMemberPass(encodePassword.encode(dto.getMemberPass()));
+		System.out.println("비밀 "+dto.getMemberPass());
+		membersService.updateMemberProcess(dto);
+	}
 
 }

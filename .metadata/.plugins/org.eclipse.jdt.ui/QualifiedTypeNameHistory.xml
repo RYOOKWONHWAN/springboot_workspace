@@ -34,7 +34,6 @@
     <fullyQualifiedTypeName name="java.util.ArrayList"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.GrantedAuthority"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UserDetailsService"/>
-    <fullyQualifiedTypeName name="com.example.shop.members.dto.MembersDTO"/>
     <fullyQualifiedTypeName name="org.springframework.security.core.userdetails.UsernameNotFoundException"/>
     <fullyQualifiedTypeName name="com.example.shop.security.service.PrincipaDetails"/>
     <fullyQualifiedTypeName name="com.example.shop.security.service.PrincipalDetailService"/>
@@ -60,4 +59,5 @@
     <fullyQualifiedTypeName name="java.util.LinkedHashMap"/>
     <fullyQualifiedTypeName name="com.example.shop.security.service.CorsConfig"/>
     <fullyQualifiedTypeName name="org.springframework.beans.factory.annotation.Autowired"/>
+    <fullyQualifiedTypeName name="com.example.shop.members.dto.MembersDTO"/>
 </qualifiedTypeNameHistroy>
